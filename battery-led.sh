@@ -1,5 +1,12 @@
 #!/bin/sh
 
+ActivateBatteryLevel () {
+	echo "> Pulse"
+	gpioctl dirout-high 19 >& /dev/null
+	/usr/bin/sleep 0.1
+	gpioctl dirout-low 19 >& /dev/null
+}
+
 ReadGpio () {
 	val=$(gpioctl get $1 | grep LOW)
 
@@ -32,14 +39,12 @@ echo "> Enabling Battery LEDs"
 #       /usr/bin/sleep 0.1
 #done
 
+# gpio setup
 gpioctl dirin 15 >& /dev/null
 gpioctl dirin 16 >& /dev/null
 gpioctl dirin 17 >& /dev/null
 
-echo "> Pulse"
-gpioctl dirout-high 19 >& /dev/null
-/usr/bin/sleep 0.1
-gpioctl dirout-low 19 >& /dev/null
+ActivateBatteryLevel
 
 /usr/bin/sleep 0.5
 CheckBatteryLevel
