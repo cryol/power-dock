@@ -181,6 +181,7 @@ int chargeCheck(){
 	else {
 	printf("Unable to initilize pin 16 for input \n");
 	return initcp;
+	}
 }
 int checkBattery(){
 	//Hopefully implement later to check if battery is there
