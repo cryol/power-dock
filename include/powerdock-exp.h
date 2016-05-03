@@ -22,7 +22,7 @@ extern "C" {
 //// Functions
 void pulseGen();
 
-int readPins();
+void readPins();
 
 int levelCheck();
 

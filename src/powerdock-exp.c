@@ -5,7 +5,7 @@
 int s15;
 int s17;
 int s15p;
-int s17;
+int s17p;
 
 
 
@@ -184,5 +184,5 @@ int chargeCheck(){
 }
 int checkBattery(){
 	//Hopefully implement later to check if battery is there
-	return 0
+	return 0;
 }
