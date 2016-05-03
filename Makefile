@@ -31,7 +31,7 @@ TARGET_LIBD := $(LIBDIR)/$(LIBD).so
 
 # C applications
 APP0 := power-dock
-SOURCE_APP0 := $(SRCDIR)/main-$(APP0).$(SRCEXT)
+SOURCE_APP0 := $(SRCDIR)/main-powerdock-exp.$(SRCEXT)
 OBJECT_APP0 := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCE_APP0:.$(SRCEXT)=.o))
 LIB_APP0 := -L$(LIBDIR) -lonionpowerdock -libugpio
 TARGET_APP0 := $(BINDIR)/$(APP0)
@@ -50,9 +50,11 @@ $(TARGET_LIBD): $(OBJECT_LIBD)
 
 
 # generic: build any object file required
-$(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
-	@mkdir -p $(dir $@)
-	@echo " $(CC) $(CFLAGS) $(INC) -c -o $@ $<"; $(CC) $(CFLAGS) $(INC) -c -o $@ $<
+$(TARGET_APP0): $(OBJECT_APP0)
+	@echo " Compiling $(APP0)"
+	@mkdir -p $(BINDIR)
+	@echo " Linking..."
+	$(CC) $^ $(CFLAGS) $(LDFLAGS) -o $(TARGET_APP0) $(LIB) $(LIB_APP0)
 
 clean:
 	@echo " Cleaning..."; 
