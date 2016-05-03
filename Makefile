@@ -23,7 +23,7 @@ INC := $(shell find $(INCDIR) -maxdepth 1 -type d -exec echo -I {}  \;)
 # define specific binaries to create
 # C libraries
 LIBD := libonionpowerdock
-SOURCE_LIBD := src/lib/onion-debug.$(SRCEXT)
+SOURCE_LIBD := src/powerdock-exp.$(SRCEXT)
 OBJECT_LIBD := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCE_LIBD:.$(SRCEXT)=.o))
 TARGET_LIBD := $(LIBDIR)/$(LIBD).so
 
@@ -33,7 +33,7 @@ TARGET_LIBD := $(LIBDIR)/$(LIBD).so
 APP0 := power-dock
 SOURCE_APP0 := $(SRCDIR)/main-$(APP0).$(SRCEXT)
 OBJECT_APP0 := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCE_APP0:.$(SRCEXT)=.o))
-LIB_APP0 := -L$(LIBDIR) -loniondebug -lonioni2c -lonionpwmexp
+LIB_APP0 := -L$(LIBDIR) -lonionpowerdock -libugpio
 TARGET_APP0 := $(BINDIR)/$(APP0)
 
 
@@ -71,8 +71,8 @@ resp:
 	@echo "LIB: $(LIB)"
 
 # Tests
-tester:
-	$(CC) $(CFLAGS) test/tester.cpp $(INC) $(LIB) -o bin/tester
+#tester:
+#	$(CC) $(CFLAGS) test/tester.cpp $(INC) $(LIB) -o bin/tester
 
 # Spikes
 #ticket:

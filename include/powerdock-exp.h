@@ -1,11 +1,10 @@
 #ifndef _POWERDOCK_EXP_H_
-#define _OLED_EXP_H_
+#define _POWERDOCK_EXP_H_
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
-#include <onion-debug.h>
 #include <errno.h>
 #include "ugpio/ugpio.h"
 
