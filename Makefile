@@ -30,10 +30,10 @@ TARGET_LIBD := $(LIBDIR)/$(LIBD).so
 
 
 # C applications
-APP0 := power-dock
-SOURCE_APP0 := $(SRCDIR)/main-powerdock-exp.$(SRCEXT)
+APP0 := powerdock-exp
+SOURCE_APP0 := $(SRCDIR)/main-$(APP0).$(SRCEXT)
 OBJECT_APP0 := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCE_APP0:.$(SRCEXT)=.o))
-LIB_APP0 := -L$(LIBDIR) -lonionpowerdock -libugpio
+LIB_APP0 := -L$(LIBDIR) -lonionpowerdock -lugpio
 TARGET_APP0 := $(BINDIR)/$(APP0)
 
 
