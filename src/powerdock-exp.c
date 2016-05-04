@@ -163,7 +163,7 @@ int levelCheck(){
 	if (initpin1==0 & initpin2==0){
 		int batlevel;
 		int batlevelp;	
-		pulse=pusleGen();
+		pulse=pulseGen();
 		pins=readPins();
 		batlevel=convertReading(s15,s17);
 		batlevelp=convertReading(s15p,s17p);
