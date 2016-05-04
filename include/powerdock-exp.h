@@ -21,7 +21,7 @@ extern "C" {
 #endif
 
 //// Functions
-int pulseGen			();
+//int pulseGen			();
 
 int readPins			();
 
