@@ -1,6 +1,6 @@
 #include <powerdock-exp.h>
 
-void usage(const char* progName) 
+void usage() 
 {
 	onionPrint(ONION_SEVERITY_FATAL, "\n");
 	onionPrint(ONION_SEVERITY_FATAL, "Usage: powerdock-exp -i\n");
@@ -24,7 +24,7 @@ int powerCommand(char *command){
 	int charge = 0;
 	int status;
 	//perform the specified command
-	onionPrint(ONION_SEVERITY_DEBUG_EXTRA, "command = '%s', param = '%s'\n", command, param);
+	onionPrint(ONION_SEVERITY_DEBUG_EXTRA, "command = '%s'\n", command);
 	//Check if you have battery connected
 	status = checkBattery();
 	//If status is 0 then proceed with the other comamnds
@@ -46,7 +46,7 @@ int powerCommand(char *command){
 			return charge;
 		}
 		else {
-		usage(progname);
+		usage();
 		printf("Invalid Commands /n");
 		status=1;
 		return status;
@@ -90,10 +90,10 @@ int main(int argc, char** argv)
 			break;
 		case 'h':
 			// display help menu
-			usage(progname);
+			usage();
 			break;
 		default:
-			usage(progname);
+			usage();
 			return 0;
 		}
 	}
