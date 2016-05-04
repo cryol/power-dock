@@ -68,14 +68,12 @@ int main(int argc, char** argv)
 //-v 
 //-h
 //-q
-
+	int 	ch;
 	const char *progname;
-	char 	*command
+	char 	*command;
 	int status;
 	progname = argv[0];
-	
 	int verbose;
-	int status;
 	int quiet;
 		
 		while ((ch = getopt(argc, argv, "vqh:")) != -1) {
@@ -126,7 +124,6 @@ int main(int argc, char** argv)
 
 		onionPrint(ONION_SEVERITY_DEBUG, "> arguments remaining: %d\n", argc);
 	}
-
-	}
 	return 0;
-}
+	}
+	
