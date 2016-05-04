@@ -21,9 +21,9 @@ extern "C" {
 #endif
 
 //// Functions
-void pulseGen();
+int pulseGen();
 
-void readPins();
+int readPins();
 
 int levelCheck();
 

@@ -124,7 +124,7 @@ int convertReading(int val1, int val2){
 //Make a Simple Decision Table and spit out the value.
 	
 }
-void readPins(){
+int readPins(){
 	printf("Beginning Reading Sequence\n");
 	usleep(500000);
 	s15 = _GpioGet(pinRead1);
@@ -133,11 +133,12 @@ void readPins(){
 	s15p = _GpioGet(pinRead1);
 	s17p = _GpioGet(pinRead2);
 	printf("Finished Reading Sequence\n");
+	return 0;
 	//Read and save states to s15 and s17
 	//Wait 500 ms 
 	//Read and save states to s15p and s17p
 }
-void pulseGen(){
+int pulseGen(){
 	//Set GPIO 19 to Low
 	//Wait for 200 ms 
 	//Set GPIO 19 to High
@@ -151,16 +152,19 @@ void pulseGen(){
 	usleep(100000);
 	status = _GpioSet(ctrl, 0);
 	printf("Finsihed PulseGen Sequence\n");
+	return 0;
 } 
 int levelCheck(){
 	int	initpin1=_GpioSetInput(pinRead1);
 	int	initpin2=_GpioSetInput(pinRead2);
 	int level;
+	int pulse;
+	int pins;
 	if (initpin1==0 & initpin2==0){
 		int batlevel;
 		int batlevelp;	
-		pusleGen();
-		readPins();
+		pulse=pusleGen();
+		pins=readPins();
 		batlevel=convertReading(s15,s17);
 		batlevelp=convertReading(s15p,s17p);
 		level=convertToLevel(batlevel,batlevelp);
