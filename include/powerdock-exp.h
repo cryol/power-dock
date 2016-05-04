@@ -21,15 +21,15 @@ extern "C" {
 #endif
 
 //// Functions
-int pulseGen();
+int pulseGen			();
 
-int readPins();
+int readPins			();
 
-int levelCheck();
+int levelCheck			();
 
-int chargeCheck();
+int chargeCheck			();
 
-int checkBattery();
+int checkBattery		();
 
 
 #ifdef __cplusplus
