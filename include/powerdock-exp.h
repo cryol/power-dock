@@ -7,6 +7,7 @@
 #include <string.h>
 #include <errno.h>
 #include "ugpio/ugpio.h"
+#include "onion-debug.h"
 
 
 unsigned int ctrl = 19;

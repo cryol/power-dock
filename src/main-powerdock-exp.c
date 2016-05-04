@@ -72,7 +72,7 @@ int main(int argc, char** argv)
 	const char *progname;
 	char 	*command
 	int status;
-	progname = argsv[0];
+	progname = argv[0];
 	
 	int verbose;
 	int status;
