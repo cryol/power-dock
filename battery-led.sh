@@ -1,10 +1,16 @@
 #!/bin/sh
 
+IC_CTRL_GPIO=19
+IC_CTRL_SLEEP="0.1"
+BL0_GPIO=18
+BL1_GPIO=16
+PLUGDETECT_GPIO=15
+
 ActivateBatteryLevel () {
 	echo "> Pulse"
-	gpioctl dirout-high 19 >& /dev/null
-	/usr/bin/sleep 0.1
-	gpioctl dirout-low 19 >& /dev/null
+	gpioctl dirout-high IC_CTRL_GPIO >& /dev/null
+	/usr/bin/sleep $IC_CTRL_SLEEP
+	gpioctl dirout-low IC_CTRL_GPIO >& /dev/null
 }
 
 ReadGpio () {
@@ -20,29 +26,29 @@ ReadGpio () {
 }
 
 CheckBatteryLevel () {
-	charge=$(ReadGpio 16)
+	charge=$(ReadGpio $PLUGDETECT_GPIO)
 	echo "> Charging status: $charge"
 
-	battery1=$(ReadGpio 17)
-	battery2=$(ReadGpio 15)
-	echo "> Battery Level: $battery2 $battery1"
+	battery1=$(ReadGpio $BL1_GPIO)
+	battery0=$(ReadGpio $BL0_GPIO)
+	echo "> Battery Level: $battery0 $battery1"
 }
 
 echo "> Enabling Battery LEDs"
 
 #while [ 1 ]
 #do
-#       gpioctl dirout-low 19
-#       /usr/bin/sleep 0.1
-#       gpioctl dirout-high 19
+#       gpioctl dirout-low $IC_CTRL_GPIO
+#       /usr/bin/sleep $IC_CTRL_SLEEP
+#       gpioctl dirout-high $IC_CTRL_GPIO
 #
 #       /usr/bin/sleep 0.1
 #done
 
 # gpio setup
-gpioctl dirin 15 >& /dev/null
-gpioctl dirin 16 >& /dev/null
-gpioctl dirin 17 >& /dev/null
+gpioctl dirin $BL0_GPIO >& /dev/null
+gpioctl dirin $BL1_GPIO >& /dev/null
+gpioctl dirin $PLUGDETECT_GPIO >& /dev/null
 
 ActivateBatteryLevel
 
