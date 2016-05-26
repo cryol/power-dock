@@ -1,4 +1,4 @@
-#include <powerdock-exp.h>
+#include <power-dock.h>
 
 //Pin State Holders
 
@@ -63,7 +63,7 @@ int _GpioSet (int gpioPin, int value)
 	return 	status;
 }
 
-int _GpioSetInput (int gpioPin)
+int _GpioGet (int gpioPin, int *value)
 {
 	int 	status;
 
@@ -73,7 +73,10 @@ int _GpioSetInput (int gpioPin)
 	if (status == EXIT_SUCCESS) {
 		status 	= gpio_direction_input(gpioPin);
 
-		if (status < 0) {
+		if (status >= 0) {
+			*value = gpio_get_value(gpioPin);
+		}
+		else {
 			status = EXIT_FAILURE;
 		}
 
@@ -83,14 +86,16 @@ int _GpioSetInput (int gpioPin)
 
 	return 	status;
 }
-int _GpioGet (int gpioPin)
-{
-	int 	reading;
 
-	reading = gpio_get_value(gpioPin);
+// int _GpioGet (int gpioPin)
+// {
+// 	int 	reading;
 
-	return 	reading;
-}
+// 	reading = gpio_get_value(gpioPin);
+
+// 	return 	reading;
+// }
+
 int convertToLevel(int batlevel1, int batlevel2){
 	int level;
 	if(batlevel1<batlevel2){
@@ -125,67 +130,86 @@ int convertReading(int val1, int val2){
 	
 }
 int readPins(){
+	int status;
+
 	printf("Beginning Reading Sequence\n");
 	usleep(500000);
-	s15 = _GpioGet(pinRead1);
-	s17 = _GpioGet(pinRead2);
+	status = _GpioGet(POWERDOCK_BATTERY_LEVEL0_GPIO, &s15);
+	status = _GpioGet(POWERDOCK_BATTERY_LEVEL1_GPIO, &s17);
 	usleep(500000);
-	s15p = _GpioGet(pinRead1);
-	s17p = _GpioGet(pinRead2);
+
+	status = _GpioGet(POWERDOCK_BATTERY_LEVEL0_GPIO, &s15p);
+	status = _GpioGet(POWERDOCK_BATTERY_LEVEL1_GPIO, &s17p);
 	printf("Finished Reading Sequence\n");
-	return 0;
+
+	return EXIT_SUCCESS;
 	//Read and save states to s15 and s17
 	//Wait 500 ms 
 	//Read and save states to s15p and s17p
 }
-int pulseGen(){
+int enableBatteryLeds(){
+	int status;
+
 	//Set GPIO 19 to Low
 	//Wait for 200 ms 
 	//Set GPIO 19 to High
 	//Wait 100 ms 
 	//Set GPIO19 back low
-	printf("Beginning Pulse Gen Sequence\n");
-	int status;
-	status = _GpioSet(ctrl, 0);
-	usleep(200000);
-	status = _GpioSet(ctrl, 1);
-	usleep(100000);
-	status = _GpioSet(ctrl, 0);
-	printf("Finsihed PulseGen Sequence\n");
-	return 0;
+	
+	status = _GpioSet(POWERDOCK_CTRL_GPIO, 0);
+	usleep(200 * 1000);
+	status |= _GpioSet(POWERDOCK_CTRL_GPIO, 1);
+	usleep(100 * 1000);
+	status |= _GpioSet(POWERDOCK_CTRL_GPIO, 0);
+	
+	return status;
 } 
+
+int readLevelPins(int *level0, int *level1) {
+	int status;
+
+	status 	=_GpioGet(POWERDOCK_BATTERY_LEVEL0_GPIO, level0);
+	status 	|=_GpioGet(POWERDOCK_BATTERY_LEVEL1_GPIO, level1);
+
+	return status;
+}
+
 int levelCheck(){
-	int	initpin1=_GpioSetInput(pinRead1);
-	int	initpin2=_GpioSetInput(pinRead2);
-	int level;
-	int pulse;
-	int pins;
-	if (initpin1==0 & initpin2==0){
-		int batlevel;
-		int batlevelp;	
-		pulse=pulseGen();
-		pins=readPins();
-		batlevel=convertReading(s15,s17);
-		batlevelp=convertReading(s15p,s17p);
-		level=convertToLevel(batlevel,batlevelp);
-		return level;
-	}
-	else {
-	printf("Was unable to get level because could not set the two pins to input \n");
-	return level;
-	}
+	// int	initpin1=_GpioSetInput(POWERDOCK_BATTERY_LEVEL0_GPIO);
+	// int	initpin2=_GpioSetInput(POWERDOCK_BATTERY_LEVEL1_GPIO);
+	// int level;
+	// int pulse;
+	// int pins;
+	// if (initpin1==0 & initpin2==0){
+	// 	int batlevel;
+	// 	int batlevelp;	
+	// 	pulse=enableBatteryLeds();
+	// 	pins=readPins();
+	// 	batlevel=convertReading(s15,s17);
+	// 	batlevelp=convertReading(s15p,s17p);
+	// 	level=convertToLevel(batlevel,batlevelp);
+	// 	return level;
+	// }
+	// else {
+	// 	printf("Was unable to get level because could not set the two pins to input \n");
+	// 	return level;
+	// }
+	return 0;
 }
 int chargeCheck(){
-	int check;
-	int	initcp=_GpioSetInput(chargepin);	
-	if( initcp==0){
-		check=_GpioGet(chargepin);
-		return check;
-	}
-	else {
-	printf("Unable to initilize pin 16 for input \n");
-	return initcp;
-	}
+	// int status;
+	// int check;
+
+	// int	initcp=_GpioSetInput(chargepin);	
+	// if( initcp==0){
+	// 	status=_GpioGet(chargepin, &check);
+	// 	return check;
+	// }
+	// else {
+	// 	printf("Unable to initilize pin 16 for input \n");
+	// 	return initcp;
+	// }
+	return 0;
 }
 int checkBattery(){
 	//Hopefully implement later to check if battery is there

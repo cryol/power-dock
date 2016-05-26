@@ -6,14 +6,15 @@
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
-#include "ugpio/ugpio.h"
-#include "onion-debug.h"
+
+#include <ugpio/ugpio.h>
+#include <onion-debug.h>
 
 
-unsigned int ctrl = 19;
-unsigned int pinRead1 = 15;
-unsigned int pinRead2 = 17;
-unsigned int chargepin = 16;
+#define POWERDOCK_CTRL_GPIO 			19
+#define POWERDOCK_BATTERY_LEVEL0_GPIO 	16
+#define POWERDOCK_BATTERY_LEVEL1_GPIO 	18
+
 
 
 #ifdef __cplusplus
@@ -21,7 +22,8 @@ extern "C" {
 #endif
 
 //// Functions
-int pulseGen			();
+int 		enableBatteryLeds			();
+int 		readLevelPins				(int *level0, int *level1);
 
 int readPins			();
 
