@@ -8,9 +8,9 @@ PLUGDETECT_GPIO=15
 
 ActivateBatteryLevel () {
 	echo "> Pulse"
-	gpioctl dirout-high IC_CTRL_GPIO >& /dev/null
+	gpioctl dirout-high $IC_CTRL_GPIO >& /dev/null
 	/usr/bin/sleep $IC_CTRL_SLEEP
-	gpioctl dirout-low IC_CTRL_GPIO >& /dev/null
+	gpioctl dirout-low $IC_CTRL_GPIO >& /dev/null
 }
 
 ReadGpio () {
