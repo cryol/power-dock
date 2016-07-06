@@ -1,5 +1,14 @@
 #!/bin/sh
 
+### 
+# Simple script to test Power Dock battery indicator
+#
+# Requires additional package:
+#	opkg install coreutils-sleep
+###
+
+
+
 IC_CTRL_GPIO=19
 IC_CTRL_SLEEP="0.1"
 BL0_GPIO=18
