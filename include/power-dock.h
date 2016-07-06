@@ -7,7 +7,7 @@
 #include <string.h>
 #include <errno.h>
 
-#include <ugpio/ugpio.h>
+#include <gpio.h>
 #include <onion-debug.h>
 
 
@@ -22,16 +22,9 @@ extern "C" {
 #endif
 
 //// Functions
-int 		enableBatteryLeds			();
-int 		readLevelPins				(int *level0, int *level1);
+int 		enableBatteryLevelIndicator			();
+int 		readBatteryLevel					(int *level0, int *level1);
 
-int readPins			();
-
-int levelCheck			();
-
-int chargeCheck			();
-
-int checkBattery		();
 
 
 #ifdef __cplusplus

@@ -4,8 +4,6 @@
 server="lazar@build.onion.io"
 remotePath="/home/lazar/OpenWRT-Buildroot/openwrt/dl"
 package="power-dock"
-
-## upload project to openwrt2.onion.io 
 localPath="../$package"
 
 
