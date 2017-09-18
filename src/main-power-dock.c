@@ -28,10 +28,12 @@ int main(int argc, char** argv)
 	int 	level0, level1;
 	int 	batteryLevel;
 
+	int 	dockVersion	= 1;
+
 	// save the program name
 	progname 	= argv[0];
 
-	while ((ch = getopt(argc, argv, "vqht")) != -1) {
+	while ((ch = getopt(argc, argv, "vqht2")) != -1) {
 		switch (ch) {
 			case 'v':
 				// verbose output
@@ -45,6 +47,10 @@ int main(int argc, char** argv)
 				// enable reading the battery level
 				level0 	= 0;
 				level1 	= 0;
+				break;
+			case '2':
+				// Power Dock 2 mode
+				dockVersion	= 2;
 				break;
 			default:
 				// display usage printout
@@ -60,11 +66,11 @@ int main(int argc, char** argv)
 
 	// enable the battery level indicator LEDs
 	onionPrint(ONION_SEVERITY_INFO, "> Enabling Battery Indicator LEDs\n");
-	status  = enableBatteryLevelIndicator();
+	status  = enableBatteryLevelIndicator(dockVersion);
 
 
-	// read the battery level
-	if (level0 == 0 && level1 == 0) {
+	// read the battery level (only for Power Dock 1)
+	if (level0 == 0 && level1 == 0 && dockVersion == 1;) {
 		onionPrint(ONION_SEVERITY_INFO, "> Reading Battery Level Pins\n");
 		status 	|= readBatteryLevel(&level0, &level1);
 

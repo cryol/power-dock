@@ -12,6 +12,8 @@
 
 
 #define POWERDOCK_CTRL_GPIO 			19
+#define POWERDOCK2_CTRL_GPIO 			16
+
 #define POWERDOCK_BATTERY_LEVEL0_GPIO 	16
 #define POWERDOCK_BATTERY_LEVEL1_GPIO 	18
 
@@ -24,7 +26,7 @@ extern "C" {
 #endif
 
 //// Functions
-int 		enableBatteryLevelIndicator			();
+int 		enableBatteryLevelIndicator			(int dockVersion);
 int 		readBatteryLevel					(int *level0, int *level1);
 int 		convertBatteryInputsToLevel			(int level0, int level1);
 

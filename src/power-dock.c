@@ -5,14 +5,18 @@
 // Battery IC Functions
 ///////////////////////////////////////
 
-int enableBatteryLevelIndicator(){
+int enableBatteryLevelIndicator(int dockVersion){
 	int status;
+	int ctrlGpio = POWERDOCK_CTRL_GPIO;
+	if (dockVersion == 2) {
+		ctrlGpio = POWERDOCK2_CTRL_GPIO;
+	}
 
-	//Set GPIO 19 to Low
+	//Set CTRL GPIO to Low
 	//Wait for 200 ms
-	//Set GPIO 19 to High
+	//Set CTRL GPIO to High
 	//Wait 100 ms
-	//Set GPIO19 back low
+	//Set CTRL GPIO back low
 
 	status = GpioSet(POWERDOCK_CTRL_GPIO, 0);
 	usleep(200 * 1000);
