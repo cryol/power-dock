@@ -18,11 +18,11 @@ int enableBatteryLevelIndicator(int dockVersion) {
 	//Wait 100 ms
 	//Set CTRL GPIO back low
 
-	status = GpioSet(POWERDOCK_CTRL_GPIO, 0);
+	status = GpioSet(ctrlGpio, 0);
 	usleep(200 * 1000);
-	status |= GpioSet(POWERDOCK_CTRL_GPIO, 1);
+	status |= GpioSet(ctrlGpio, 1);
 	usleep(100 * 1000);
-	status |= GpioSet(POWERDOCK_CTRL_GPIO, 0);
+	status |= GpioSet(ctrlGpio, 0);
 
 	return status;
 }
