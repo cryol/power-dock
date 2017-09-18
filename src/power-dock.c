@@ -18,6 +18,8 @@ int enableBatteryLevelIndicator(int dockVersion) {
 	//Wait 100 ms
 	//Set CTRL GPIO back low
 
+	onionPrint(ONION_SEVERITY_DEBUG, "   Pulsing ctrl pin: GPIO%d\n", ctrlGpio);
+
 	status = GpioSet(ctrlGpio, 0);
 	usleep(200 * 1000);
 	status |= GpioSet(ctrlGpio, 1);
