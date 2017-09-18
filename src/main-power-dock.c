@@ -1,14 +1,15 @@
 #include <power-dock.h>
 
-void usage(const char* progname) 
+void usage(const char* progname)
 {
 	printf("\n");
-	printf("Usage: %s [-qvi]\n", progname);
+	printf("Usage: %s [-qv] [-l]\n", progname);
 	printf("\n");
 	printf("FUNCTIONALITY:\n");
 	printf("\tEnables the Battery Level Indicator LEDs on the Onion Power Dock.\n");
 	printf("\n\n");
 	printf("OPTIONS:\n");
+	printf(" -l 		show battery level measurement\n");
 	printf(" -q 		quiet: no output\n");
 	printf(" -v 		verbose: lots of output\n");
 	printf(" -h 		help: show this prompt\n");
@@ -25,7 +26,8 @@ int main(int argc, char** argv)
 	int 	verbose;
 	int 	quiet;
 	int 	level0, level1;
-		
+	int 	batteryLevel;
+
 	// save the program name
 	progname 	= argv[0];
 
@@ -39,7 +41,7 @@ int main(int argc, char** argv)
 				// quiet output
 				verbose = ONION_VERBOSITY_NONE;
 				break;
-			case 't':
+			case 'l':
 				// enable reading the battery level
 				level0 	= 0;
 				level1 	= 0;
@@ -50,7 +52,7 @@ int main(int argc, char** argv)
 				return 0;
 		}
 	}
-	
+
 	onionSetVerbosity(verbose);
 	argc 	-= optind;
 	argv	+= optind;
@@ -65,10 +67,14 @@ int main(int argc, char** argv)
 	if (level0 == 0 && level1 == 0) {
 		onionPrint(ONION_SEVERITY_INFO, "> Reading Battery Level Pins\n");
 		status 	|= readBatteryLevel(&level0, &level1);
-		onionPrint(ONION_SEVERITY_INFO, "   Level0: %d (GPIO%d)\n", level0, POWERDOCK_BATTERY_LEVEL0_GPIO);
-		onionPrint(ONION_SEVERITY_INFO, "   Level1: %d (GPIO%d)\n", level1, POWERDOCK_BATTERY_LEVEL1_GPIO);
+
+		onionPrint(ONION_SEVERITY_DEBUG, "   Level0: %d (GPIO%d)\n", level0, POWERDOCK_BATTERY_LEVEL0_GPIO);
+		onionPrint(ONION_SEVERITY_DEBUG, "   Level1: %d (GPIO%d)\n", level1, POWERDOCK_BATTERY_LEVEL1_GPIO);
+
+		batteryLevel = convertBatteryInputsToLevel(level0, level1);
+
+		onionPrint(ONION_SEVERITY_INFO, " Battery Level: %d/%d\n", batteryLevel, MAX_BATTERY_LEVEL);
 	}
 
 	return 0;
 }
-	

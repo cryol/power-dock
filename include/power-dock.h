@@ -15,6 +15,8 @@
 #define POWERDOCK_BATTERY_LEVEL0_GPIO 	16
 #define POWERDOCK_BATTERY_LEVEL1_GPIO 	18
 
+#define POWERDOCK_MAX_BATTERY_LEVEL		4
+
 
 
 #ifdef __cplusplus
@@ -24,6 +26,7 @@ extern "C" {
 //// Functions
 int 		enableBatteryLevelIndicator			();
 int 		readBatteryLevel					(int *level0, int *level1);
+int 		convertBatteryInputsToLevel			(int level0, int level1);
 
 
 
