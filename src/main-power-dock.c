@@ -70,7 +70,7 @@ int main(int argc, char** argv)
 
 
 	// read the battery level (only for Power Dock 1)
-	if (level0 == 0 && level1 == 0 && dockVersion == 1;) {
+	if (level0 == 0 && level1 == 0 && dockVersion == 1) {
 		onionPrint(ONION_SEVERITY_INFO, "> Reading Battery Level Pins\n");
 		status 	|= readBatteryLevel(&level0, &level1);
 
@@ -79,7 +79,7 @@ int main(int argc, char** argv)
 
 		batteryLevel = convertBatteryInputsToLevel(level0, level1);
 
-		onionPrint(ONION_SEVERITY_INFO, " Battery Level: %d/%d\n", batteryLevel, MAX_BATTERY_LEVEL);
+		onionPrint(ONION_SEVERITY_INFO, " Battery Level: %d/%d\n", batteryLevel, POWERDOCK_MAX_BATTERY_LEVEL);
 	}
 
 	return 0;

@@ -5,7 +5,7 @@
 // Battery IC Functions
 ///////////////////////////////////////
 
-int enableBatteryLevelIndicator(int dockVersion){
+int enableBatteryLevelIndicator(int dockVersion) {
 	int status;
 	int ctrlGpio = POWERDOCK_CTRL_GPIO;
 	if (dockVersion == 2) {
