@@ -72,12 +72,12 @@ battPercent=$(echo "$battDecimal * 100" | bc -l)
 battPercent=$(echo "scale=0; $battPercent / 1" | bc -l)
 
 # enable the battery LEDs
-/usr/bin/power-dock-leds -q
+/usr/bin/power-dock-leds -q2
 
 # print output
 if [ $bJson == 1 ]; then
-	echo "{\"battery-voltage\":$VbattRounded, \"battery-percent\":$battPercent}"
+	echo "{\"battery-voltage\":$VbattRounded}"
 else
 	echo "Battery Voltage Level: $VbattRounded V"
-	echo "Battery Level Percent: $battPercent %"
+	#echo "Battery Level Percent: $battPercent %"
 fi
