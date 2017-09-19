@@ -72,7 +72,7 @@ battPercent=$(echo "$battDecimal * 100" | bc -l)
 battPercent=$(echo "scale=0; $battPercent / 1" | bc -l)
 
 # enable the battery LEDs
-/usr/bin/power-dock-leds -q2
+/usr/bin/power-dock -q2
 
 # print output
 if [ $bJson == 1 ]; then
