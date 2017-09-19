@@ -23,7 +23,7 @@ int main(int argc, char** argv)
 	char 	*command;
 	int 	status;
 
-	int 	verbose;
+	int 	verbose = ONION_SEVERITY_INFO;
 	int 	quiet;
 	int 	level0, level1;
 	int 	batteryLevel;
