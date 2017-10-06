@@ -30,7 +30,7 @@ getBatteryVoltage() {
 	Ain=$(echo "($adc/1024)*(3.3)" | bc -l)
 	#echo $Ain
 
-	Vbatt=$(echo "$Ain*4/3" | bc -l)
+	Vbatt=$(echo "$Ain*5/4" | bc -l)
 	echo "$Vbatt"
 }
 
