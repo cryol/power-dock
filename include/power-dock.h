@@ -8,7 +8,7 @@
 #include <errno.h>
 
 #include <gpio.h>
-#include <onion-debug.h>
+#include <main-onion-debug.h>
 
 
 #define POWERDOCK_CTRL_GPIO 			19
