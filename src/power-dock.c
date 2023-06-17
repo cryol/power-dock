@@ -40,7 +40,7 @@ int readBatteryLevel(int *level0, int *level1) {
 
 int convertBatteryInputsToLevel(int level0, int level1) {
 	// truth table:
-	//	GPIO 18		GPIO16		Battery level
+	//	GPIO498		GPIO496		Battery level
 	//	(level1)	(level0)
 	//----------------------------------------
 	//	HIGH		LOW 		4/4 - 100%
